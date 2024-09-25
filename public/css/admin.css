@@ -62,6 +62,11 @@
     flex: 1; 
     text-align: center; 
 }
-.rentDate button {
+.deleteButton button {
     background-color: red;
+    padding: 20px;
+}
+.updateStatus button {
+    background-color: green;
+    padding: 20px;
 }

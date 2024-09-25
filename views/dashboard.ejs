@@ -14,6 +14,13 @@
                     <p>Ilość saun: <%= rent.saunas %> </p> 
                     <p>Status: <%= rent.status %> </p>
                     <p>Koszt: <%= rent.price %>zł</p>
+                    <form class="updateStatus" action="/update-status" method="POST">
+                        <input type="hidden" name="id" value="<%= rent.id %>">
+                        <input type="hidden" name="email" value="<%= rent.email %>">
+                        <input type="hidden" name="start_date" value="<%= rent.start_date %>">
+                        <input type="hidden" name="end_date" value="<%= rent.end_date %>">
+                        <button type="submit">Potwierdź wpłatę</button>
+                    </form>
                     <form class="deleteButton" action="/delete" method="POST">
                         <input type="hidden" name="id" value="<%= rent.id %>">
                         <button type="submit">Usuń</button>
