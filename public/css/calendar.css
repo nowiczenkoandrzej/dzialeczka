@@ -1,0 +1,250 @@
+ .calendar {
+    width: 98%;
+    max-width: 460px;
+    padding: 1rem;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+.calendar header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.calendar nav {
+    display: flex;
+    align-items: center;
+}
+.calendar ul {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    text-align: center;
+}
+.calendar ul li {
+    width: calc(100% / 7);
+    padding-top: 20px;
+    position: relative;
+    padding-bottom: 20px;
+    z-index: 2;
+}
+
+#prev,
+#next {
+    width: 20px;
+    height: 20px;
+    position: relative;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+}
+#prev::before,
+#next::before {
+    content: "";
+    width: 50%;
+    height: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    border-style: solid;
+    border-width: 0.25em 0.25em 0 0;
+    border-color: #ccc;
+}
+#next::before {
+    transform: translate(-50%, -50%) rotate(45deg);
+}
+#prev::before {
+    transform: translate(-50%, -50%) rotate(-135deg);
+}
+#prev:hover::before,
+#next:hover::before {
+    border-color: #000;
+}
+.days {
+    font-weight: 600;
+}
+
+.dates li.dayOfMonth {
+    color: #000;
+}
+
+.dates li.previousMonth {
+    color: #ccc;
+}
+.dates li.nextMonth {
+    color: #333;
+}
+
+.dates li.nextMonth:hover, li.dayOfMonth:hover {
+    background-color: #4CAF50;
+    border-radius: 30%;
+    transition: background-color 0.3s, border-radius 0.3s;
+
+}
+
+
+.dates li.bookedDay::before {
+    content: "";
+    width: 75%;
+    height: 75%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #009908;
+    border-radius: 30%;
+    z-index: -1;
+    transition: width 0.3s, height 0.3s, background 0.3s, border-radius 0.3s;
+    
+}
+
+.dates li.bookedDay {
+    color: #000;
+}
+
+.dates li.inactive {
+    color: #ccc;
+}
+.dates li.reserved {
+    color: #ddd;
+}
+.dates li.reserved::before {
+    content: "";
+    width: 75%;
+    height: 75%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgb(160, 68, 68);
+    border-radius: 30%;
+    z-index: -1;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.form-group input, .form-group select {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    border-radius: 10px;
+}
+
+.form-group input[type="submit"] {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+.formDate {
+    display: flex;
+    width: 100%;
+    
+    align-items: center;
+    margin: 20px;
+    margin-left: 0px;
+    gap: 20px;
+}
+.formDate input{
+    border: none;
+    font-family: inherit; 
+    font-size: inherit;   
+    background: transparent;
+    appearance: none;
+    cursor: text;
+}
+.formDate input:focus {
+    outline: none; 
+}
+.formSauna {
+    display: flex;
+    
+    align-items: center;
+    margin: 20px;
+    margin-left: 0px;
+}
+.formSauna input{
+    border: none;
+    font-family: inherit; 
+    font-size: 18px;   
+    background: transparent;
+    appearance: none;
+    cursor: text;
+    width: 12px;
+    margin: 12px
+}
+.formSauna input:focus {
+    outline: none; 
+}
+button.subtract, button.add {
+    width: 40px;
+    height: 40px;
+    background-color: #ccc;
+    color: #666;
+    border-radius: 12px;
+    font-weight: bold;
+    font-size: 18px;
+    border: none;
+    transition: background-color 0.2s ease;
+}
+button.subtract:hover, button.add:hover {
+    background-color: #aaa;
+} 
+
+button.subtract:active, button.add:active {
+    background-color: #888;
+} 
+
+
+.payment {
+    display: flex;
+}
+.price {
+    margin-left: 20px;
+}
+#price {
+    border: none;
+    font-family: inherit; 
+    font-size: 16px;   
+    background: transparent;
+    appearance: none;
+    cursor: text;
+    margin-left: 20px;
+    width: 50px;
+    text-align: right;
+}
+
+#price:focus {
+    outline: none; 
+}
+
+.statue {
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    flex-direction: column;
+    width: 500px;
+}
+
+.statue h1 {
+    margin-top: 100px;
+}
+
+.statue h2 {
+    margin: 20px;
+    margin-top: 40px;
+}
+.statue h3 {
+    margin-top: 40px;
+    margin-bottom: 12px;
+}
+.statue li {
+    margin: 12px;
+}

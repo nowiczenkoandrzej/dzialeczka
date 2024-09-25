@@ -1,0 +1,68 @@
+.navContainer {
+    width: 100%;
+    
+    position: fixed;
+    line-height: 65px;
+    text-align: center;
+    background-color: transparent;
+    transition: background-color 0.5s ease, padding 0.5s ease;
+    padding: 20px;
+    z-index: 10;
+}
+
+    
+.navContainer.affix {
+    background-color: rgba(255, 255, 255, 0.9); /* Przyciemnij tło, gdy jest przyklejona */
+    padding: 10px; /* Zmniejsz padding, gdy jest przyklejona */
+}
+.navContainer div.logo {
+    float: left;
+    width: auto;
+    height: auto;
+    
+}
+
+.navContainer div.logo a {
+    text-decoration: none;
+    color: #333;
+    font-size: 2.5rem;
+}
+
+.navContainer div.logo a:hover {
+    color: #00E676;
+}
+
+.navContainer div.main_list {
+    
+    padding-left: 20px;
+    padding-right: 20px;
+    
+}
+
+.navContainer div.main_list ul {
+    width: 100%;
+    height: 65px;
+    display: flex;
+    justify-content: space-between;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.navContainer div.main_list ul li {
+    width: auto;
+    height: 65px;
+    padding: 0;
+    
+}
+
+.navContainer div.main_list ul li a {
+    text-decoration: none;
+    color: #333;
+    line-height: 65px;
+    font-size: 2rem;
+}
+
+.navContainer div.main_list ul li a:hover {
+    color: #00E676;
+}

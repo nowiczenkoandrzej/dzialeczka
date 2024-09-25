@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('./partials/head.ejs') %>
+<body>
+
+    <header>
+        <%- include('./partials/nav.ejs') %>
+    </header>
+
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <div class="mainSecion">
+      
+   
+      <div class="wrapper">
+
+         <div class="calendar">
+            <header>
+               <h3></h3>
+               <nav>
+                  <button id="prev"></button>
+                  <button id="next"></button>
+               </nav>
+            </header>
+            <section>
+               <ul class="days">
+               <li>Pon</li>
+               <li>Wto</li>
+               <li>Śro</li>
+               <li>Czw</li>
+               <li>Pią</li>
+               <li style="color: red;">Sob</li>
+               <li style="color: red;">Nie</li>
+            </ul>
+            <ul class="dates"></ul>
+            </section>
+         </div>
+
+         <div class="container">
+
+            <form id='form' method="POST" action="/post">
+               <div class="form-group">
+                  <label for="email">Email *</label>
+                  <input id='email' type='email' name='email' required>
+               </div>
+               <div class="form-group">
+                  <label for="phone_number">Nr Telefonu *</label>
+                  <input id='phone_number' type='number' name='phone_number' required>
+               </div>
+               <div class="formDate">
+                  <label for="start_date">Od </label>
+                  <input id='start_date' type='date' name='start_date' readonly required>
+                  
+                  <label for="end_date">Do </label>
+                  <input id='end_date' type='date' name='end_date' readonly required>
+               </div>
+               <div class="formSauna">
+                  <label for="saunas">Ilość Saun: </label>
+                  <div style="margin-left: 40px;">
+                     <button class="subtract">-</button>
+                     <input id='saunas' type='number' name='saunas' value="0" required readonly>
+                     <button class="add">+</button>
+                  </div>
+                  
+               </div>
+               <div class="form-group">
+                  <label for="desc">Uwagi</label>
+                  <input id='desc' type='text' name='desc' >
+               </div>
+
+               <div class="payment">
+                  <p>
+                     Do Zapłaty: 
+                  </p>
+                  <input id='price' type='number' name='price' value="0"  required readonly>
+                  <p>zł</p>
+               </div>
+               <br>
+               <div class="payment">
+                  <input type="checkbox" id="terms" name="terms" required>
+                  <label for="terms" style="margin-left: 12px;">Akceptuję <a href="#regulamin" target="_blank">regulamin</a> i <a href="/policy" target="_blank">politykę prywatności</a></label>
+               </div>
+               <br>
+               <div class="error-message" style="color: red; display: none;">Wybierz termin przed zarezerwowaniem!</div>
+
+               <div class="form-group">
+                     <input type="submit" value="Zarezerwuj">
+               </div>
+            </form>
+
+         </div>
+
+
+      </div>
+    </div>
+    <section class="mainSection">
+      <div id="regulamin" class="statue">
+         
+         <h1>Regulamin Korzystania z Domku i Sauny</h1>
+         <br>
+
+         <h2>Rezerwacja i Płatności</h2>
+         <ul>
+            <li>Rezerwacja jest potwierdzona po wpłaceniu zadatku w wysokości 30% całkowitej kwoty wynajmu.</li>
+            <li>Pozostała część płatności jest wymagana na 7 dni przed przyjazdem.</li>
+            <li>W przypadku anulowania rezerwacji zadatek nie podlega zwrotowi.</li>
+         </ul>
+
+         <h2>Przyjazd i Wyjazd</h2>
+         <ul>
+            <li>Doba wynajmu rozpoczyna się o godzinie 15:00, a kończy o 11:00 dnia następnego.</li>
+            <li>Prosimy o punktualne opuszczenie domku, aby umożliwić przygotowanie go dla kolejnych gości.</li>
+            <li>Istnieje możliwość przedłużenia pobytu po wcześniejszym uzgodnieniu i za dodatkową opłatą.</li>
+         </ul>
+
+         <h2>Zasady Korzystania z Domku</h2>
+         <ul>
+            <li>Domek może pomieścić maksymalnie 12 osób. Przekroczenie tej liczby wymaga wcześniejszej zgody.</li>
+            <li>Goście są zobowiązani do dbania o porządek i stan techniczny domku. Ewentualne uszkodzenia prosimy zgłaszać niezwłocznie.</li>
+            <li>Palenie tytoniu w domku jest surowo zabronione. Palenie dozwolone jest wyłącznie na tarasie lub w wyznaczonych miejscach na zewnątrz.</li>
+            <li>Zwierzęta są akceptowane tylko po wcześniejszym uzgodnieniu.</li>
+         </ul>
+
+         <h2>Zasady Korzystania z Sauny</h2>
+         <ul>
+            <li>Korzystanie z sauny dozwolone jest wyłącznie dla gości domku.</li>
+            <li>W saunie obowiązuje całkowity zakaz spożywania alkoholu oraz palenia tytoniu.</li>
+            <li>Przed wejściem do sauny należy dokładnie umyć ciało pod prysznicem.</li>
+            <li>Po skorzystaniu z sauny, prosimy o jej przewietrzenie i pozostawienie w czystości.</li>
+            <li>Kąpiele w stawie są możliwe wyłącznie po zakończeniu korzystania z sauny.</li>
+         </ul>
+
+
+      </div>
+      
+    </section>
+
+    <%- include('./partials/footer.ejs') %>
+    
+
+    <script>
+        const reservations = JSON.parse('<%- JSON.stringify(rents) %>');
+    </script>
+    
+
+    <script type="text/javascript" src="/js/calendarScript.js"></script>
+</body>
+</html>
+

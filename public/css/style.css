@@ -1,0 +1,357 @@
+@import url('https://fonts.googleapis.com/css?family=Quicksand:400,500,700');
+* {
+    
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+body {
+    padding: 0;
+    margin: 0;
+    font-family: "Quicksand", sans-serif;
+    overflow-x: hidden; 
+    overflow-y: auto;
+    height: 100vh;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type=number] {
+    -moz-appearance: textfield;
+}
+
+h3 {
+    font-weight: 600;
+}
+
+.mainSection {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 40px;
+    padding-bottom: 40px;
+}
+
+.secondSection {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.hero {
+    width: calc(100% - 100px);
+    height: 80vh;
+    background-image: url('https://www.vidaron.pl/_userfiles/uploads/maly_domek_letniskowy/drewniany-domek-letniskowy-min.jpg?1711619153336');
+    background-size: cover;
+    background-position: center; 
+    background-repeat: no-repeat;
+    box-sizing: border-box;
+    padding: 40px;
+    border-radius: 20px;
+    
+}
+
+.hero h1 {
+    color: #333;
+    margin: 10px;
+    line-height: 1.5;
+    font-size: 36px;
+    width: 50%;
+
+}
+.hero p  {
+    color: #333;
+    margin: 10px;
+    line-height: 1.5;
+    font-size: 18px;
+    width: 50%;
+    
+}
+
+@media (max-width: 768px) {
+    .hero h1 {
+        width: 80%;
+    }
+
+    .hero p {
+        width: 80%;
+    }
+}
+
+.wrapper {
+    display: flex;
+    align-items: start;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 40px;
+}
+.wrapperReverse {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row-reverse;
+    flex-wrap: wrap;
+    gap: 40px;
+}
+
+
+.houseDesc {
+    width: 35vw;
+} 
+.houseDesc p {
+    color: #333;
+    margin: 10px;
+    line-height: 1.5;
+    font-size: 18px;
+    width: 90%;
+    
+}
+
+.carouselWrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.carousel {
+    width: 35vw;
+    aspect-ratio: 1 / 1;
+    position: relative;
+    margin: auto;
+    object-fit: cover;
+    object-position: center;
+    overflow: hidden;
+}
+
+@media (max-width: 1000px) {
+    .carousel {
+        width: 85vw;
+    }
+    .houseDesc {
+        width: 85vw;
+    }
+    .houseDesc p {
+        width: 100%;
+    }
+}
+.mySlides {
+    display: none;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    
+}
+
+.mySlidesSauna {
+    display: none;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    
+}
+
+.carousel img {
+    object-fit: cover;
+    object-position: center;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+}
+
+.prevImg, .nextImg, .nextImgSauna, .prevImgSauna {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    width: auto;
+    margin-top: -22px;
+    padding: 16px;
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    transition: 0.6s ease;
+    margin-left: 16px;
+    margin-right: 16px;
+    user-select: none;
+    border: 4px solid #fff;
+    border-radius: 100px;
+}
+.nextImg, .nextImgSauna {
+    right: 0;
+    border: 4px solid #fff;
+    border-radius: 100px;
+}
+
+.nextImg:hover, .prevImg:hover, .nextImgSauna:hover, .prevImgSauna:hover {
+    background-color: rgba(0,0,0,0.8);
+}
+
+
+
+/* Caption text */
+.text {
+    color: #f2f2f2;
+    font-size: 15px;
+    padding: 8px 12px;
+    position: absolute;
+    bottom: 8px;
+    width: 100%;
+    text-align: center;
+}
+
+/* Number text (1/3 etc) */
+.numbertext {
+    color: #f2f2f2;
+    font-size: 12px;
+    padding: 8px 12px;
+    position: absolute;
+    top: 0;
+}
+
+/* The dots/bullets/indicators */
+.dot, .dotSauna {
+    cursor: pointer;
+    height: 15px;
+    width: 15px;
+    margin: 0 2px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+    transition: background-color 0.6s ease;
+}
+
+.active, .dot:hover, .dotSauna:hover {
+    background-color: #717171;
+}
+
+
+
+.fade {
+    animation-name: fade;
+    animation-duration: 1.5s;
+}
+
+@keyframes fade {
+    from {opacity: .4}
+    to {opacity: 1}
+}
+
+
+.container {
+    width: 460px;
+    background-color: white;
+
+}
+
+h2 {
+    text-align: center;
+}
+
+
+
+.header-nav{
+    display: flex;
+    position: fixed;
+    background-color: gainsboro;
+    width: 100%; 
+    justify-content: space-between;
+    align-items: center;
+    z-index: 10;
+}
+
+.header-nav ul {
+    margin: 0;
+    padding: 4px;
+    display: flex;
+    list-style: none;
+    align-items: center;
+}
+
+.header-nav li {
+    position: relative;
+    padding: 4px;
+}
+
+.custom-number-input {
+    display: flex;
+    align-items: center;
+}
+
+.custom-number-input button {
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 16px;
+    width: 30px;
+    height: 30px;
+}
+
+.custom-number-input input {
+    text-align: center;
+    width: 60px;
+    height: 30px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin: 0 5px;
+    font-size: 16px;
+}
+
+.custom-number-input button:focus {
+    outline: none;
+}
+
+.custom-number-input .decrement {
+    margin-right: -1px; /* Usunięcie marginesu między przyciskiem a inputem */
+}
+
+.custom-number-input .increment {
+    margin-left: -1px; /* Usunięcie marginesu między inputem a przyciskiem */
+}
+
+.buttonReserve {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.buttonReserve a {
+    width: 100%;
+    margin: 60px;
+    max-width: 800px;
+    padding: 28px;
+    text-align: center;
+    font-family: inherit;
+    font-size: 36px;
+    color: #333;
+    background-color: #4CAF50;
+    border-radius: 12px;
+    transition: background-color 0.2s;
+
+}
+
+.buttonReserve a:hover {
+    background-color: #248a28;
+    color: #333;
+    text-decoration: solid;
+}
+.success {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+    height: 60%;
+}
+.success-container {
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    flex-direction: column;
+    gap: 20px;
+
+}
+

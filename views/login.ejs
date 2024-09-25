@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('./partials/head.ejs') %>
+<body>
+    <div class="mainSecion">
+    
+        <div class="login-container">
+            <h2>Logowanie</h2>
+            <form action="/login" method="POST">
+                <label for="username">Nazwa użytkownika:</label>
+                <input type="text" id="username" name="username" required>
+
+                <label for="password">Hasło:</label>
+                <input type="password" id="password" name="password" required>
+
+                <button type="submit">Zaloguj się</button>
+            </form>
+        </div>
+
+    </div>
+</body>
+</html>

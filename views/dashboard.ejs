@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('./partials/head.ejs') %>
+<body>
+    <h1>dashboard</h1>
+
+    <h1>Rezerwacje</h1>
+    <ul>
+        <% rents.forEach((rent) => { %>
+
+            <div class="rentContainer">
+                <div class="rentDate">
+                    <p><%= rent.start_date %> - <%= rent.end_date %></p>
+                    <p>Ilość saun: <%= rent.saunas %> </p> 
+                    <p>Status: <%= rent.status %> </p>
+                    <p>Koszt: <%= rent.price %>zł</p>
+                    <form class="deleteButton" action="/delete" method="POST">
+                        <input type="hidden" name="id" value="<%= rent.id %>">
+                        <button type="submit">Usuń</button>
+                    </form>
+                </div>
+                <div>  
+                    <strong>Email:</strong> <%= rent.email %> <br>
+                    <strong>Numer telefonu:</strong> <%= rent.phone_number %> <br>
+
+                </div>
+                <div>
+                    <strong>Opis:</strong> <%= rent.desc %> <br>
+                </div>
+
+
+
+            </div>
+
+        <% }); %>
+    </ul>
+    <script>
+        document.querySelectorAll('.deleteButton').forEach(button => {
+            button.addEventListener('submit', (event) => {
+                const confirmation = window.confirm('czy na pewno chcesz usunąc rezerwacje?');
+                    if(!confirmation) {
+                    event.preventDefault();
+            }   
+            });
+        })
+    </script>
+</body>
+</html>
+
