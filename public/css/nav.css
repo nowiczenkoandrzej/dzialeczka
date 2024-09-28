@@ -7,13 +7,20 @@
     background-color: transparent;
     transition: background-color 0.5s ease, padding 0.5s ease;
     padding: 20px;
+    padding-left: 5%;
+    padding-right: 5%;
     z-index: 10;
 }
+
+
+
 
     
 .navContainer.affix {
     background-color: rgba(255, 255, 255, 0.9); /* Przyciemnij tło, gdy jest przyklejona */
     padding: 10px; /* Zmniejsz padding, gdy jest przyklejona */
+    padding-left: 7%;
+    padding-right: 7%;
 }
 .navContainer div.logo {
     float: left;

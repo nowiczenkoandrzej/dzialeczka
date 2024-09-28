@@ -1,5 +1,5 @@
  .calendar {
-    width: 98%;
+    width: 100%;
     max-width: 460px;
     padding: 1rem;
     background: #fff;
@@ -230,7 +230,8 @@ button.subtract:active, button.add:active {
     justify-content: center;
     align-items: start;
     flex-direction: column;
-    width: 500px;
+    width: 95%;
+    max-width: 500px;
 }
 
 .statue h1 {

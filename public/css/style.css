@@ -43,14 +43,14 @@ h3 {
 }
 
 .hero {
-    width: calc(100% - 100px);
+    width: 90%;
     height: 80vh;
     background-image: url('https://www.vidaron.pl/_userfiles/uploads/maly_domek_letniskowy/drewniany-domek-letniskowy-min.jpg?1711619153336');
     background-size: cover;
     background-position: center; 
     background-repeat: no-repeat;
     box-sizing: border-box;
-    padding: 40px;
+    padding: 3%;
     border-radius: 20px;
     
 }
@@ -59,7 +59,7 @@ h3 {
     color: #333;
     margin: 10px;
     line-height: 1.5;
-    font-size: 36px;
+    font-size: 2rem;
     width: 50%;
 
 }
@@ -67,7 +67,7 @@ h3 {
     color: #333;
     margin: 10px;
     line-height: 1.5;
-    font-size: 18px;
+    font-size: 1rem;
     width: 50%;
     
 }
@@ -240,7 +240,8 @@ h3 {
 
 
 .container {
-    width: 460px;
+    width: 90%;
+    max-width: 460px;
     background-color: white;
 
 }
@@ -318,9 +319,8 @@ h2 {
     justify-content: center;
 }
 .buttonReserve a {
-    width: 100%;
-    margin: 60px;
-    max-width: 800px;
+    width: 90%;
+    
     padding: 28px;
     text-align: center;
     font-family: inherit;
