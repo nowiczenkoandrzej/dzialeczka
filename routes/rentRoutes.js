@@ -5,9 +5,9 @@ const authController = require('../controllers/authController');
 
 router.get('/dashboard', authController.verifyToken, rentController.getRents);
 router.post('/post', rentController.createRent);
-router.post('/delete', rentController.deleteRent);
+router.post('/delete', authController.verifyToken, rentController.deleteRent);
 router.get('/form', rentController.getAvailableDates);
-router.post('/update-status', rentController.updateStatus);
+router.post('/update-status', authController.verifyToken, rentController.updateStatus);
 
 
 module.exports = router;

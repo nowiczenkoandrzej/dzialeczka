@@ -85,3 +85,51 @@
 .red-text {
     color: red;
 }
+
+.admin-navbar {
+    width: 6rem;
+    height: 100vh;
+    position: fixed;
+    background-color: #23232e;
+}
+.admin-navbar-nav {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+.admin-nav-item {
+
+}
+.nav-link {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    height: 6rem;
+
+}
+.link-text {
+
+}
+.admin-content {
+    margin-left: 6rem;
+}
+
+@media (max-width: 600px) {
+    .admin-navbar {
+        bottom: 0;
+        width: 100vw;
+        height: 6rem;
+    }
+    .admin-navbar-nav {
+        flex-direction: row;
+        justify-content: space-evenly;
+    }
+    .admin-content {
+        margin-left: 0rem;
+    }
+}
+
