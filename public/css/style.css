@@ -45,6 +45,7 @@ h3 {
 .hero {
     width: 90%;
     height: 80vh;
+    margin-top: 6rem;
     background-image: url('https://www.vidaron.pl/_userfiles/uploads/maly_domek_letniskowy/drewniany-domek-letniskowy-min.jpg?1711619153336');
     background-size: cover;
     background-position: center; 
@@ -52,7 +53,38 @@ h3 {
     box-sizing: border-box;
     padding: 3%;
     border-radius: 20px;
-    
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+    flex-direction: column;
+}
+
+.title {
+    align-self: flex-start;
+    top: 10px;
+    left: 10px;
+    color: white;
+    margin: 40px;
+}
+.action {
+    align-self: flex-end;
+    bottom: 10px;
+    right: 10px;
+    color: white;
+    padding: 10px;
+    font-size: 2.5rem;
+    background: rgba(32, 32, 32, 0.15); 
+    border-radius: 20px;   
+    transition: background 0.2s ease-in-out, transform 0.2s ease-in-out; 
+}
+
+.action a {
+    color: #fff;
+}
+
+.action:hover {
+    background: rgba(32, 32, 32, 0.5); 
+    transform: scale(1.05);
 }
 
 .hero h1 {
@@ -353,5 +385,27 @@ h2 {
     flex-direction: column;
     gap: 20px;
 
+}
+
+.gallery-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    aspect-ratio: 1;
+    padding: 0.5rem;
+}
+
+.gallery-card img {
+    /* Dodajemy style dla obrazka */
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* zapewnia, że obrazek wypełni kontener bez zniekształceń */
+}
+
+.basic-grid {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
 }
 

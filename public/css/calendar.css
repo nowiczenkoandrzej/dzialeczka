@@ -107,7 +107,10 @@
 }
 .dates li.reserved {
     color: #ddd;
+    position: relative;
 }
+
+
 .dates li.reserved::before {
     content: "";
     width: 75%;
@@ -120,6 +123,12 @@
     border-radius: 30%;
     z-index: -1;
 }
+
+.dates li.reserved:hover::before {
+    background: rgb(64, 64, 64);
+
+}
+
 
 .form-group {
     margin-bottom: 15px;

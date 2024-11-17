@@ -18,10 +18,13 @@ exports.createRent = async (req, res) => {
     const rentData = [email, phone_number, start_date, end_date, saunas, RentStatus.RESERVED, desc, price];
 
     const subject = "Potwierdzenie rezerwacji";
-    const text = `Dziękujemy za rezerwację w naszym obieckie. Termin rezerwacji: od ${start_date} do ${end_date}. Prosimy dokonać płatności w wysokości ${price} na konto: 1111 0000 1111 0000 w celu finalizacji rezerwacji`;
+    const text = `Dziękujemy za rezerwację w naszym obieckie. Termin rezerwacji: od ${start_date} do ${end_date}. Prosimy dokonać płatności w wysokości ${price}zł na konto: 1111 0000 1111 0000 w celu finalizacji rezerwacji`;
+
+    const adminMail = `Od ${start_date} do ${end_date}. ${price}zł`;
 
     try {
         await emailService.sendEmail(email, subject, text);
+        await emailService.informAdmin(adminMail);
 
     } catch (error) {
         console.error("Błąd przy wysyłaniu e-maila:", error);
