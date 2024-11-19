@@ -16,8 +16,5 @@ router.get('/success', (req, res) => {
     res.render('success');
 });
 
-router.get('/gallery', (req, res) => {
-    res.render('gallery');
-});
 
 module.exports = router;

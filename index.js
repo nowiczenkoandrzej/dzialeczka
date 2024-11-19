@@ -9,6 +9,7 @@ const authRoutes = require('./routes/authRoutes');
 const rentRoutes = require('./routes/rentRoutes');
 const homeRoutes = require('./routes/homeRoutes');
 const adminRoutes = require('./routes/adminRoutes');
+const imageRoutes = require('./routes/imageRoutes');
 
 require('./config/db');
 
@@ -26,6 +27,7 @@ app.use('/', homeRoutes);
 app.use('/', authRoutes);
 app.use('/', rentRoutes);
 app.use('/', adminRoutes);
+app.use('/', imageRoutes);
 
 
 app.listen(process.env.PORT || 3000, () => console.log('App avaiable on http://localhost:3000'));
