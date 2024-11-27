@@ -3,15 +3,55 @@
 <%- include('./partials/head.ejs') %>
 
 <body>
+    <%- include('./partials/adminNav.ejs') %>
+    <div class="admin-content">
+        <div class="image-upload-container">
+        <input 
+            type="file" 
+            id="image-upload-input" 
+            name="image" 
+            accept="image/*"
+        >
+        <label for="image-upload-input" class="upload-label">
+            Choose Image
+        </label>
 
-    <header>
-        <%- include('./partials/nav.ejs') %>
-    </header>
+        <img 
+            id="image-preview" 
+            class="image-preview" 
+            src="#" 
+            alt="Image preview"
+        >
 
+        <form 
+            id="upload-form" 
+            action="/upload_image" 
+            method="POST" 
+            enctype="multipart/form-data"
+        >
+            <input 
+                type="file" 
+                name="image" 
+                id="hidden-file-input" 
+                style="display:none;"
+            >
+            <input 
+                type="text" 
+                name="alt_text" 
+                placeholder="Alt text (optional)"
+                style="margin-top: 1rem; width: 100%; padding: 0.5rem;"
+            >
+            <button 
+                type="submit" 
+                style="margin-top: 1rem; padding: 10px 20px; background-color: green; color: white; border: none; cursor: pointer;"
+            >
+                Upload Image
+            </button>
+        </form>
+    </div>
+    </div>
 
-    <br><br><br><br><br>
+    <script type="text/javascript" src="/js/upload-image.js"></script>
 
-
-        <%- include('./partials/footer.ejs') %>
 </body>
 </html>

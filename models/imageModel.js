@@ -11,7 +11,7 @@ const Image = {
         });
     },
 
-    createImage: (data, callback) => {
+    createImage: (imageData, callback) => {
         const { 
             filename, 
             alt_text 
@@ -30,9 +30,17 @@ const Image = {
             alt_text || '' 
         ];
 
-         db.run(sql, values, function(err) {
+        db.run(sql, values, function(err) {
             if (err) return callback(err, null);
             callback(null, this.lastID);
+        });
+        
+        const check = `
+            select * from images
+        `
+        db.all(check, [], (err, rows) => {
+            if (err) return callback(err, null);
+            console.log(rows);
         });
     },
 

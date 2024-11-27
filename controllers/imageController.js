@@ -27,7 +27,7 @@ exports.uploadImage = (req, res) => {
             console.error('Error uploading image:', err);
         }
 
-        res.redirect('/admin_gallery');
+        res.redirect('/admin-gallery');
     });
 }
 

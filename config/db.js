@@ -11,7 +11,7 @@ const db = new sqlite3.Database('./test.db', sqlite3.OPEN_READWRITE, (err) => {
     db.run(`CREATE TABLE IF NOT EXISTS images(
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             filename TEXT,
-            alt_text, TEXT,
+            alt_text TEXT,
             upload_date DATETIME DEFAULT CURRENT_TIMESTAMP
         )`, (err) => {
         if (err) {

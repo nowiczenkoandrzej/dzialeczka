@@ -1,6 +1,9 @@
 exports.getMails = (req, res) => {
-    res.render('mails')
+    res.render('mails');
 }
 exports.getPrices = (req, res) => {
-    res.render('prices')
+    res.render('prices');
+}
+exports.getGallery = (req, res) => {
+    res.render('admin_gallery');
 }
