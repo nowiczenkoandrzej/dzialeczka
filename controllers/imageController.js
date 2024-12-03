@@ -4,7 +4,7 @@ const storage = require('../config/storage')
 exports.getGallery = (req, res) => {
     Image.getAllImages((err, rows) => {
         if (err) return console.error(err.message);
-        res.render('gallery', { image: rows });
+        res.render('gallery', { images: rows });
     });
 }
 
@@ -22,21 +22,28 @@ exports.uploadImage = (req, res) => {
 
 
     Image.createImage(imageData, (err, imageId) => {
-
         if (err) {
             console.error('Error uploading image:', err);
         }
-
-        res.redirect('/admin-gallery');
+    });
+    Image.getAllImages((err, rows) => {
+        if (err) return console.error(err.message);
+        res.render('admin_gallery', { images: rows });
     });
 }
 
 exports.deleteImage = (req, res) => {
-    const imageId = req.params.id;
+    //const imageId = req.params.id;
+    const id = req.body.id;
 
-    Image.deteleImage(imageId, (err) => {
+    Image.deteleImage(id, (err) => {
         if (err) {
             console.error('Error deleting image:', err);
         }
+        
+    });
+    Image.getAllImages((err, rows) => {
+        if (err) return console.error(err.message);
+        res.render('admin_gallery', { images: rows });
     });
 }

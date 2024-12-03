@@ -45,17 +45,29 @@ const Image = {
     },
 
     deteleImage: (id, callback) => {
-        db.run(sql, [id], (dbErr) => {
-            if (dbErr) return callback(dbErr);
 
-            // Delete physical file
-            const filePath = path.join(__dirname, '../public/img', image.filename);
-            fs.unlink(filePath, (fileErr) => {
-                // If file doesn't exist, it's not a critical error
-                if (fileErr && fileErr.code !== 'ENOENT') {
-                    console.warn('Failed to delete image file:', fileErr);
-                }
-                callback(null);
+        const selectSql = `SELECT filename FROM images WHERE id = ?`;
+
+        db.get(selectSql, [id], (selectErr, image) => {
+            if (selectErr) return callback(selectErr);
+            
+            if (!image) return callback(new Error('Image not found'));
+
+            // SQL to delete the image from database
+            const deleteSql = `DELETE FROM images WHERE id = ?`;
+            
+            db.run(deleteSql, [id], (dbErr) => {
+                if (dbErr) return callback(dbErr);
+
+                // Delete physical file
+                const filePath = path.join(__dirname, '../public/img', image.filename);
+                fs.unlink(filePath, (fileErr) => {
+                    // If file doesn't exist, it's not a critical error
+                    if (fileErr && fileErr.code !== 'ENOENT') {
+                        console.warn('Failed to delete image file:', fileErr);
+                    }
+                    callback(null);
+                });
             });
         });
     },

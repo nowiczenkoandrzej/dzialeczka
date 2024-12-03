@@ -43,7 +43,8 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         } catch (error) {
             console.error('Upload error:', error);
-            alert('Image upload failed');
+            //alert('Image upload failed');
         }
+        window.location.reload();
     });
 });

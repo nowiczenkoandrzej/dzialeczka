@@ -19,39 +19,11 @@
 
     <section class="gallery">
 
-        <div class="gallery-item" data-index="0">
-            <img src="/img/img1.jpeg" alt=" dupa dupa">
-        </div>
-        <div class="gallery-item" data-index="1">
-            <img src="/img/img2.jpg" alt="">
-        </div>
-        <div class="gallery-item" data-index="2">
-            <img src="/img/img2.jpg" alt="">
-        </div>
-        <div class="gallery-item" data-index="3">
-            <img src="/img/img3.jpg" alt="">
-        </div>
-        <div class="gallery-item" data-index="4">
-            <img src="/img/img3.jpg" alt="">
-        </div>
-        <div class="gallery-item" data-index="5">
-            <img src="/img/img4.jpg" alt="">
-        </div>
-        <div class="gallery-item" data-index="6">
-            <img src="/img/img5.jpg" alt="">
-        </div>
-        <div class="gallery-item" data-index="7">
-            <img src="/img/img6.jpg" alt="">
-        </div>
-        <div class="gallery-item" data-index="8">
-            <img src="/img/img7.jpg" alt="">
-        </div>
-        <!-- <div class="gallery-item">
-            <img src="/img/img8.jpg" alt="">
-        </div>
-        <div class="gallery-item">
-            <img src="/img/img19.jpg" alt="">
-        </div> -->
+        <% images.forEach((image, index) => { %>
+            <div class="gallery-item" data-index="<%= index %>">
+                <img src="/img/<%= image.filename %>" alt="<%= image.alt_text %>">
+            </div>
+        <% }); %>
 
          <div class="image-viewer">
             <button class="viewer-close">&times;</button>

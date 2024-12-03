@@ -6,52 +6,77 @@
     <%- include('./partials/adminNav.ejs') %>
     <div class="admin-content">
         <div class="image-upload-container">
-        <input 
-            type="file" 
-            id="image-upload-input" 
-            name="image" 
-            accept="image/*"
-        >
-        <label for="image-upload-input" class="upload-label">
-            Choose Image
-        </label>
-
-        <img 
-            id="image-preview" 
-            class="image-preview" 
-            src="#" 
-            alt="Image preview"
-        >
-
-        <form 
-            id="upload-form" 
-            action="/upload_image" 
-            method="POST" 
-            enctype="multipart/form-data"
-        >
             <input 
                 type="file" 
+                id="image-upload-input" 
                 name="image" 
-                id="hidden-file-input" 
-                style="display:none;"
+                accept="image/*"
             >
-            <input 
-                type="text" 
-                name="alt_text" 
-                placeholder="Alt text (optional)"
-                style="margin-top: 1rem; width: 100%; padding: 0.5rem;"
+            <label for="image-upload-input" class="upload-label">
+                Choose Image
+            </label>
+
+            <img 
+                id="image-preview" 
+                class="image-preview" 
+                src="#" 
+                alt="Image preview"
             >
-            <button 
-                type="submit" 
-                style="margin-top: 1rem; padding: 10px 20px; background-color: green; color: white; border: none; cursor: pointer;"
+
+            <form 
+                id="upload-form" 
+                action="/upload_image" 
+                method="POST" 
+                enctype="multipart/form-data"
             >
-                Upload Image
-            </button>
-        </form>
-    </div>
+                <input 
+                    type="file" 
+                    name="image" 
+                    id="hidden-file-input" 
+                    style="display:none;"
+                >
+                <input 
+                    type="text" 
+                    name="alt_text" 
+                    placeholder="Alt text (optional)"
+                    style="margin-top: 1rem; width: 100%; padding: 0.5rem;"
+                >
+                <button 
+                    type="submit" 
+                    style="margin-top: 1rem; padding: 10px 20px; background-color: green; color: white; border: none; cursor: pointer;"
+                >
+                    Upload Image
+                </button>
+            </form>
+        </div>
+
+        <section class="gallery">
+
+        <% images.forEach((image, index) => { %>
+            <div class="gallery-item" data-index="<%= index %>">
+                <img src="/img/<%= image.filename %>" alt="<%= image.alt_text %>">
+            </div>
+            <form class="deleteButton" action="/delete_image" method="POST">
+                <input type="hidden" name="id" value="<%= image.id %>">
+                <button type="submit">Usuń</button>
+            </form>
+        <% }); %>
+
+         <div class="image-viewer">
+            <button class="viewer-close">&times;</button>
+            <button class="viewer-nav viewer-nav-prev">&#10094;</button>
+            <div class="viewer-content">
+                <img class="viewer-image" src="" alt="Full view image">
+            </div>
+            <button class="viewer-nav viewer-nav-next">&#10095;</button>
+        </div>
+        
+    </section>
+
     </div>
 
     <script type="text/javascript" src="/js/upload-image.js"></script>
+    <script type="text/javascript" src="/js/gallery.js"></script>
 
 </body>
 </html>
