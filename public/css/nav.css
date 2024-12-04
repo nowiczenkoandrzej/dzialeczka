@@ -1,75 +1,98 @@
-.navContainer {
-    width: 100%;
-    
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 50px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     position: fixed;
-    line-height: 65px;
+    z-index: 10;
     text-align: center;
     background-color: transparent;
     transition: background-color 0.5s ease, padding 0.5s ease;
-    padding: 20px;
-    padding-left: 5%;
-    padding-right: 5%;
-    z-index: 10;
+    width: 100%;
+    line-height: 65px;
 }
-
-
-
-
-    
-.navContainer.affix {
+.navbar.affix {
     background-color: rgba(255, 255, 255, 0.9); /* Przyciemnij tło, gdy jest przyklejona */
     padding: 10px; /* Zmniejsz padding, gdy jest przyklejona */
     padding-left: 7%;
     padding-right: 7%;
 }
-.navContainer div.logo {
-    float: left;
-    width: auto;
-    height: auto;
-    
-}
 
-.navContainer div.logo a {
-    text-decoration: none;
-    color: #333;
-    font-size: 2.5rem;
-}
-
-.navContainer div.logo a:hover {
-    color: #00E676;
-}
-
-.navContainer div.main_list {
-    
-    padding-left: 20px;
-    padding-right: 20px;
-    
-}
-
-.navContainer div.main_list ul {
-    width: 100%;
-    height: 65px;
-    display: flex;
-    justify-content: space-between;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-}
-
-.navContainer div.main_list ul li {
-    width: auto;
-    height: 65px;
-    padding: 0;
-    
-}
-
-.navContainer div.main_list ul li a {
-    text-decoration: none;
-    color: #333;
-    line-height: 65px;
+.logo {
     font-size: 2rem;
+    font-weight: bold;
+    color: #333;
+}
+.logo a {
+    color: #4CAF50;
 }
 
-.navContainer div.main_list ul li a:hover {
-    color: #00E676;
+.nav-links {
+    display: flex;
+    gap: 20px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #333;
+    transition: color 0.3s ease;
+}
+
+
+
+.nav-links a:hover {
+    color: #4CAF50;
+}
+
+.menu-toggle {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+}
+
+.menu-toggle:hover .bar{
+    background-color: #4CAF50;
+}
+
+
+
+.bar {
+    width: 25px;
+    height: 3px;
+    background-color: #333;
+    margin: 3px 0;
+}
+
+@media screen and (max-width: 768px) {
+    .navbar {
+        padding: 15px 20px;
+    }
+
+    .nav-links {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        align-items: start;
+        position: absolute;
+        top: 70px;
+        left: 0;
+        background-color: #f8f9fa;
+        padding: 20px;
+        height: 100vh;
+    }
+
+    .nav-links .spacer {
+        flex: 1;
+        height: 100%
+    }
+
+    .menu-toggle {
+        display: flex;
+    }
+
+    .nav-links.active {
+        display: flex;
+
+    }
 }
