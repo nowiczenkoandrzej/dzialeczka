@@ -12,6 +12,7 @@ const adminRoutes = require('./routes/adminRoutes');
 const imageRoutes = require('./routes/imageRoutes');
 
 require('./config/db');
+require('./utils/reservationReminder');
 
 const app = express();
 

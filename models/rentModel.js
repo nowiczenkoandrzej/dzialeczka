@@ -40,6 +40,17 @@ const Rent = {
             callback(null);
         });
     },
+
+    findByStartDate: (date) => {
+        return new Promise((resolve, reject) => {
+            const sql = 'SELECT * FROM rents WHERE start_date = ? ORDER BY start_date DESC';
+            
+            db.all(sql, [date], (err, rows) => {
+                if (err) return reject(err);
+                resolve(rows);
+            });
+        });
+    },
     
 };
 

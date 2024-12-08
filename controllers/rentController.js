@@ -1,10 +1,7 @@
 const Rent = require('../models/rentModel');
 const emailService = require('../utils/emailService');
 
-const RentStatus = Object.freeze({
-    RESERVED: 'Zarezerwowane',
-    PAID: 'Opłacone'
-});
+const rentStatus = require('../utils/rentStatus')
 
 exports.getRents = (req, res) => {
     Rent.getAllRents((err, rows) => {
@@ -15,7 +12,7 @@ exports.getRents = (req, res) => {
 
 exports.createRent = async (req, res) => {
     const { email, phone_number, start_date, end_date, saunas, desc, price } = req.body;
-    const rentData = [email, phone_number, start_date, end_date, saunas, RentStatus.RESERVED, desc, price];
+    const rentData = [email, phone_number, start_date, end_date, saunas, rentStatus.RESERVED, desc, price];
 
     const subject = "Potwierdzenie rezerwacji";
     const text = `Dziękujemy za rezerwację w naszym obieckie. Termin rezerwacji: od ${start_date} do ${end_date}. Prosimy dokonać płatności w wysokości ${price}zł na konto: 1111 0000 1111 0000 w celu finalizacji rezerwacji`;
@@ -83,7 +80,7 @@ exports.updateStatus = async (req, res) => {
         return res.status(500).send("Wystąpił błąd przy wysyłaniu e-maila.");
     }
 
-    Rent.updateRentStatus(id, RentStatus.PAID, (err) => {
+    Rent.updateRentStatus(id, rentStatus.PAID, (err) => {
         if (err) {
             return res.status(500).send("Database error.");
         }
