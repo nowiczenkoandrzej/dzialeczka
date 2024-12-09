@@ -8,7 +8,7 @@ router.get('/dashboard', authController.verifyToken, rentController.getRents);
 router.get('/mails', authController.verifyToken, adminController.getMails);
 router.get('/prices', authController.verifyToken, adminController.getPrices);
 router.get('/admin-gallery', authController.verifyToken, adminController.getGallery);
-
+router.post('/save-prices', authController.verifyToken, adminController.setPrices)
 
 
 module.exports = router;

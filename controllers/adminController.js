@@ -1,10 +1,18 @@
 const Image = require('../models/imageModel');
+const JSONFileManager = require('../utils/fileManager');
 
 exports.getMails = (req, res) => {
     res.render('mails');
 }
 exports.getPrices = (req, res) => {
-    res.render('prices');
+    const manager = new JSONFileManager('./prices.json');
+    const data = manager.load();
+
+    res.render('prices', {prices: data});
+}
+exports.setPrices = (req, res) => {
+    console.log(req.body);
+    res.redirect('/prices')
 }
 exports.getGallery = (req, res) => {
 

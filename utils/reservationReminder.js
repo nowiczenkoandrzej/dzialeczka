@@ -42,7 +42,7 @@ class ReservationReminder {
     }
     startScheduler() {
     // Uruchamianie codziennie o godzinie 9:00 rano
-    cron.schedule('* * * * *', async () => {
+    cron.schedule('0 9 * * *', async () => {
       try {
         console.log('Sprawdzanie rezerwacji na jutro...');
         const upcomingReservations = await this.findUpcomingReservations();

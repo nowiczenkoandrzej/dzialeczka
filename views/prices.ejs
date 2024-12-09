@@ -6,7 +6,98 @@
     <%- include('./partials/adminNav.ejs') %>
     <div class="admin-content">
         <h1>ceny</h1>
+    
+        <form action="/save-prices" method="POST">
+            <label for="weekday">Weekday:</label>
+            <input type="number" id="weekday" name="weekday" value="<%= prices.weekday %>"><br><br>
+
+            <label for="weekend">Weekend:</label>
+            <input type="number" id="weekend" name="weekend" value="<%= prices.weekend %>"><br><br>
+
+            <label for="sauna">Sauna:</label>
+            <input type="number" id="sauna" name="sauna" value="<%= prices.sauna %>"><br><br>
+
+            <label for="bonefire">Bonefire:</label>
+            <input type="number" id="bonefire" name="bonefire" value="<%= prices.bonefire %>"><br><br>
+
+            <label>Specials:</label>
+            <div id="specials-container">
+                <% prices.specials.forEach((special, index) => { %>
+                    <div>
+                        <label for="special-<%= index %>">Special <%= index + 1 %>:</label>
+                        <input type="text" id="special-<%= index %>" name="specials[]" value="<%= special %>">
+                    </div>
+                <% }); %>
+            </div>
+            <br><br>
+
+            <div>
+                <label for="new-special-date">Special Date:</label>
+                <input type="date" id="new-special-date" name="new-special-date">
+                <label for="new-special-price">Price:</label>
+                <input type="number" id="new-special-price" name="new-special-price" placeholder="Enter price">
+                <button type="button" onclick="addSpecial()">Add to Specials</button>
+            </div>
+
+        
+
+            <button type="submit">Save</button>
+
+            
+        </form>
     </div>
     
+
+    <script>
+        const prices = JSON.parse('<%- JSON.stringify(prices) %>');
+        
+        window.onload = () => {
+            
+            document.getElementById('weekday').value = prices.weekday || 0;
+            document.getElementById('weekend').value = prices.weekend || 0;
+            document.getElementById('sauna').value = prices.sauna || 0;
+            document.getElementById('bonefire').value = prices.bonefire || 0;
+
+            const specialsContainer = document.getElementById('specials-container');
+            specialsContainer.innerHTML = ''; // Wyczyść istniejące pola
+
+            prices.specials.forEach((special, index) => {
+                const div = document.createElement('div');
+                div.innerHTML = `
+                    <label for="special-${index}">Special ${index + 1}:</label>
+                    <input type="text" id="special-${index}" name="specials[]" value="${special}">
+                `;
+                specialsContainer.appendChild(div);
+            });
+        };
+
+        function addSpecial() {
+            const dateInput = document.getElementById('new-special-date').value;
+            const priceInput = document.getElementById('new-special-price').value;
+
+            if (!dateInput || !priceInput) {
+                alert('Please enter both a date and a price.');
+                return;
+            }
+
+            const specialsContainer = document.getElementById('specials-container');
+            const index = specialsContainer.children.length;
+
+            const div = document.createElement('div');
+            div.innerHTML = `
+                <label>Special ${index + 1}:</label>
+                <input type="hidden" name="specials[${index}][date]" value="${dateInput}">
+                <input type="hidden" name="specials[${index}][price]" value="${priceInput}">
+                <span>${dateInput} - ${priceInput}</span>
+            `;
+            specialsContainer.appendChild(div);
+
+            // Clear input fields
+            document.getElementById('new-special-date').value = '';
+            document.getElementById('new-special-price').value = '';
+        }
+
+
+    </script>
 </body>
 </html>
