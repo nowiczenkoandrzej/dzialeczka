@@ -33,9 +33,9 @@
 
             <div>
                 <label for="new-special-date">Special Date:</label>
-                <input type="date" id="new-special-date" name="new-special-date">
+                <input type="date" id="new-special-date">
                 <label for="new-special-price">Price:</label>
-                <input type="number" id="new-special-price" name="new-special-price" placeholder="Enter price">
+                <input type="number" id="new-special-price" placeholder="Enter price">
                 <button type="button" onclick="addSpecial()">Add to Specials</button>
             </div>
 
@@ -64,8 +64,9 @@
             prices.specials.forEach((special, index) => {
                 const div = document.createElement('div');
                 div.innerHTML = `
-                    <label for="special-${index}">Special ${index + 1}:</label>
-                    <input type="text" id="special-${index}" name="specials[]" value="${special}">
+                    <input type="hidden" name="specials[${index}][date]" value="${special.date}">
+                    <input type="hidden" name="specials[${index}][price]" value="${special.price}">
+                    <span>${special.date} - ${special.price}</span>
                 `;
                 specialsContainer.appendChild(div);
             });
@@ -76,8 +77,15 @@
             const priceInput = document.getElementById('new-special-price').value;
 
             if (!dateInput || !priceInput) {
-                alert('Please enter both a date and a price.');
+                alert('Uzupełnij date i cene.');
                 return;
+            }
+
+            for (const special of prices.specials) {
+                if (special.date === dateInput) {
+                    alert('Data została juz ustalona.');
+                    return; // Przerywa całą funkcję
+                }
             }
 
             const specialsContainer = document.getElementById('specials-container');
