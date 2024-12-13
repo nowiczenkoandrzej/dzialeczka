@@ -8,7 +8,7 @@
         <h1>ceny</h1>
     
         <form action="/save-prices" method="POST">
-            <label for="weekday">Weekday:</label>
+            <label for="weekday">Dzień tygodnia:</label>
             <input type="number" id="weekday" name="weekday" value="<%= prices.weekday %>"><br><br>
 
             <label for="weekend">Weekend:</label>
@@ -17,10 +17,10 @@
             <label for="sauna">Sauna:</label>
             <input type="number" id="sauna" name="sauna" value="<%= prices.sauna %>"><br><br>
 
-            <label for="bonefire">Bonefire:</label>
+            <label for="bonefire">Ognisko:</label>
             <input type="number" id="bonefire" name="bonefire" value="<%= prices.bonefire %>"><br><br>
 
-            <label>Specials:</label>
+            <label>Specjalne okazje:</label>
             <div id="specials-container">
                 <% prices.specials.forEach((special, index) => { %>
                     <div>
@@ -32,16 +32,16 @@
             <br><br>
 
             <div>
-                <label for="new-special-date">Special Date:</label>
+                <label for="new-special-date">Data:</label>
                 <input type="date" id="new-special-date">
-                <label for="new-special-price">Price:</label>
+                <label for="new-special-price">Cena:</label>
                 <input type="number" id="new-special-price" placeholder="Enter price">
-                <button type="button" onclick="addSpecial()">Add to Specials</button>
+                <button type="button" onclick="addSpecial()">Dodaj</button>
             </div>
 
         
 
-            <button type="submit">Save</button>
+            <button type="submit">Zapisz</button>
 
             
         </form>

@@ -1,19 +1,24 @@
 const express = require('express');
 const router = express.Router();
+const JSONFileManager = require('../utils/fileManager');
 
-// Główna strona
 router.get('/', (req, res) => {
     res.render('index');
 });
 
-// Strona polityki prywatności
 router.get('/policy', (req, res) => {
     res.render('policy');
 });
 
-// Strona sukcesu po rezerwacji
 router.get('/success', (req, res) => {
     res.render('success');
+});
+
+router.get('/price-list', (req, res) => {
+    const manager = new JSONFileManager('./prices.json');
+    const data = manager.load();
+
+    res.render('price-list', {prices: data});
 });
 
 

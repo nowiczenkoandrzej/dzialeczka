@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('./partials/head.ejs') %>
+
+<body>
+
+    <header>
+        <%- include('./partials/nav.ejs') %>
+    </header>
+
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <div class="price-container">
+        <div class="pricing-table">
+        
+        <h1>Cennik</h1>
+        <div class="pricing-section">
+            
+           
+            <h2>Standardowe Ceny</h2>
+            <div class="pricing-row">
+                <span>Dzień powszedni:</span>
+                <strong><%= prices.weekday %> PLN</strong>
+            </div>
+            <div class="pricing-row">
+                <span>Weekend:</span>
+                <strong><%= prices.weekend %> PLN</strong>
+            </div>
+        </div>
+        
+        <div class="pricing-section">
+            <h2>Dodatkowe Usługi</h2>
+            <div class="pricing-row">
+                <span>Sauna:</span>
+                <strong><%= prices.sauna %> PLN</strong>
+            </div>
+            <div class="pricing-row">
+                <span>Ognisko:</span>
+                <strong><%= prices.bonefire %> PLN</strong>
+            </div>
+        </div>
+        
+        <div class="pricing-section special-dates">
+            <h2>Terminy Specjalne</h2>
+            <% prices.specials.sort((a, b) => new Date(a.date) - new Date(b.date)).forEach(function(special) { %>
+                <div class="special-date">
+                    <span><%= new Date(special.date).toLocaleDateString('pl-PL', { 
+                        day: 'numeric', 
+                        month: 'long', 
+                        year: 'numeric' 
+                    }) %></span>
+                    <strong style="color: red;"><%= special.price %> PLN</strong>
+                </div>
+            <% }); %>
+        </div>
+    </div>
+    <br>
+
+    <section class="buttonReserve">
+
+        <a href="/form">Sprawdź wolne terminy!</a>
+    </section>
+
+    </div>
+    
+
+    <br>
+
+
+    <%- include('./partials/footer.ejs') %>
+</body>
+</html>

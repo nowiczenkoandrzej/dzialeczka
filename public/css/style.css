@@ -278,6 +278,13 @@ h3 {
 
 }
 
+.middle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+
 h2 {
     text-align: center;
 }
@@ -476,4 +483,44 @@ h2 {
     font-size: 30px;
     cursor: pointer;
 }
+.price-container {
+    max-width: 600px;
+    margin: auto;
+    padding: 20px;
+    line-height: 1.6;
+}
 
+.price-container h2 {
+    text-align: start;
+}
+
+.pricing-table {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+}
+.pricing-section {
+    margin-bottom: 20px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+}
+.pricing-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+.special-dates {
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    padding: 10px;
+}
+.special-date {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
+    padding: 5px 0;
+    border-bottom: 1px solid #ddd;
+}
+.special-date:last-child {
+    border-bottom: none;
+}

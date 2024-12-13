@@ -8,7 +8,7 @@ exports.getPrices = (req, res) => {
     const manager = new JSONFileManager('./prices.json');
     const data = manager.load();
 
-    console.log(data);
+    //console.log(data);
     res.render('prices', {prices: data});
 }
 exports.setPrices = (req, res) => {
