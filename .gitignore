@@ -33,5 +33,4 @@ jspm_packages/
 out
 
 package-lock.json
-prices.json
 node_modules/*
