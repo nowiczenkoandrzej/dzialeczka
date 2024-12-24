@@ -1,11 +1,15 @@
 const Rent = require('../models/rentModel');
 const emailService = require('../utils/emailService');
+const JSONFileManager = require('../utils/fileManager');
 
 const rentStatus = require('../utils/rentStatus')
 
 exports.getRents = (req, res) => {
     Rent.getAllRents((err, rows) => {
         if (err) return console.error(err.message);
+
+        
+
         res.render('dashboard', { rents: rows });
     });
 };
@@ -57,8 +61,10 @@ exports.getAvailableDates = (req, res) => {
                     });
                 }
             });
+            const manager = new JSONFileManager('./prices.json');
+            const data = manager.load();
 
-            res.render('book', { rents: rents });
+            res.render('book', { rents: rents, priceList: data });
         });
 
     } catch (err) {

@@ -64,6 +64,9 @@
     font-weight: 600;
 }
 
+
+
+
 .dates li.dayOfMonth {
     color: #000;
 }
@@ -75,7 +78,7 @@
     color: #333;
 }
 
-.dates li.nextMonth:hover, li.dayOfMonth:hover {
+.dates li.nextMonth:hover, li.dayOfMonth:hover, li.reservedFirstDay:hover, li.reservedLastDay:hover{
     background-color: #4CAF50;
     border-radius: 30%;
     transition: background-color 0.3s, border-radius 0.3s;
@@ -158,6 +161,14 @@
     position: relative;
 }
 
+.dates li.reservedChosen {
+    color: #000;
+}
+
+.dates li.chosenReserved {
+    color: #000;
+}
+
 
 .dates li.reserved::before {
     content: "";
@@ -200,10 +211,68 @@
     z-index: -1;
 }
 
+.dates li.reservedChosen::before {
+    content: "";
+    width: 75%;
+    height: 75%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgb(160, 68, 68);
+    clip-path: polygon(0% 100%, 0% 0%, 100% 0%); 
+    border-radius: 30%;
+    z-index: -1;
+}
+.dates li.reservedChosen::after {
+    content: "";
+    width: 75%;
+    height: 75%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #009908;
+    clip-path: polygon(0% 100%, 100% 100%, 100% 0%); 
+    border-radius: 30%;
+    z-index: -1;
+}
+
+.dates li.chosenReserved::before {
+    content: "";
+    width: 75%;
+    height: 75%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #009908;
+    clip-path: polygon(0% 100%, 0% 0%, 100% 0%);
+    border-radius: 30%;
+    z-index: -1;
+}
+.dates li.chosenReserved::after {
+    content: "";
+    width: 75%;
+    height: 75%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    clip-path: polygon(0% 100%, 100% 100%, 100% 0%); 
+    background: rgb(160, 68, 68);
+    border-radius: 30%;
+    z-index: -1;
+}
+
 .dates li.reserved:hover::before {
     background: rgb(64, 64, 64);
 
 }
+
+
+
+
 
 
 .form-group {
@@ -287,10 +356,13 @@ button.subtract:active, button.add:active {
     background-color: #888;
 } 
 
-
 .payment {
     display: flex;
 }
+
+
+
+
 .price {
     margin-left: 20px;
 }
@@ -309,6 +381,9 @@ button.subtract:active, button.add:active {
 #price:focus {
     outline: none; 
 }
+
+
+
 
 .statue {
     display: flex;

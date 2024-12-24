@@ -59,7 +59,7 @@
             document.getElementById('bonefire').value = prices.bonefire || 0;
 
             const specialsContainer = document.getElementById('specials-container');
-            specialsContainer.innerHTML = ''; // Wyczyść istniejące pola
+            specialsContainer.innerHTML = ''; 
 
             prices.specials.forEach((special, index) => {
                 const div = document.createElement('div');
@@ -84,7 +84,7 @@
             for (const special of prices.specials) {
                 if (special.date === dateInput) {
                     alert('Data została juz ustalona.');
-                    return; // Przerywa całą funkcję
+                    return;
                 }
             }
 

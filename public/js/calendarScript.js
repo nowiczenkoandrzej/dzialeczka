@@ -17,7 +17,6 @@ let saunas = 0;
 const rentPrice = 1200;
 const saunaPrice = 200;
 
-
 const months = [
    "Styczeń",
    "Luty",
@@ -102,11 +101,60 @@ function performClick(id) {
    renderCalendar();
 }
 
+function getDateClassName(dateString, currentDate, today) {
+   if (currentDate < today) { 
+      return 'inactive'; 
+   }
+
+   const isFirstReservationDay = reservations.some(r => r.start_date === dateString);
+   const isLastReservationDay = reservations.some(r => r.end_date === dateString);
+   
+   
+   const isMiddleReservationDay = reservations.some(r => 
+      isDateBetween(dateString, r.start_date, r.end_date)
+   );
+
+   if (isMiddleReservationDay) {
+      return 'reserved';
+   }
+
+   if (isFirstReservationDay) {
+      // Sprawdzamy czy nie jest już wybrana jako ostatni dzień
+      if (chosenDays.length > 0 && dateString === chosenDays[chosenDays.length - 1]) {
+         return 'chosenReserved';
+      }
+      return 'reservedFirstDay';
+   }
+   
+   // Jeśli data jest ostatnim dniem rezerwacji
+   if (isLastReservationDay) {
+      // Sprawdzamy czy nie jest już wybrana jako pierwszy dzień
+      if (chosenDays.length > 0 && dateString === chosenDays[0]) {
+         return 'reservedChosen';
+      }
+      return 'reservedLastDay';
+   }
+   
+   // Sprawdzanie wybranych dni
+   if (chosenDays.includes(dateString)) { 
+      if (dateString === chosenDays[0]) { 
+         return 'firstDay'; 
+      }
+      if (dateString === chosenDays[chosenDays.length - 1]) { 
+         return 'lastDay'; 
+      }
+      return 'bookedDay'; 
+   }
+
+   return null;
+}
+
 
 function renderCalendar() {
    const firstDay = new Date(year, month, 1);
    const lastDay = new Date(year, month + 1, 0);
    const today = new Date();
+
    
    let datesHtml = "";
    
@@ -119,26 +167,7 @@ function renderCalendar() {
    for (let i = 1; i <= lastDay.getDate(); i++) {
       const currentDate = new Date(year, month, i);
       const dateString = formatDate(currentDate);
-      
-      let className = 'dayOfMonth'; 
-      if (currentDate < today) { 
-         className = 'inactive'; 
-      } else if(reservations.some(r => r.start_date === dateString)) { 
-         className = 'reservedFirstDay'; 
-      } else if (reservations.some(r => r.end_date === dateString)) { 
-         className = 'reservedLastDay'; 
-      } else if (reservations.some(r => isDateBetween(dateString, r.start_date, r.end_date))) { 
-         className = 'reserved'; 
-      } else if (chosenDays.includes(dateString)) { 
-          if (dateString === chosenDays[0]) { 
-            className += ' firstDay'; 
-          } else if (dateString === chosenDays[chosenDays.length - 1]) { 
-            className += ' lastDay'; 
-          } else { 
-            className = 'bookedDay'; 
-          } 
-      }
-      
+      const className = getDateClassName(dateString, currentDate, today) || 'dayOfMonth';
       datesHtml += `<li class="${className}" id="${dateString}">${i}</li>`;
    }
 
@@ -146,27 +175,10 @@ function renderCalendar() {
    for (let i = 1; i <= remainingDays; i++) {
       const nextDate = new Date(year, month + 1, i);
       const dateString = formatDate(nextDate);
-      
-      let className = 'nextMonth';
-
-      if (nextDate.getMonth() <= new Date().getMonth() && nextDate.getFullYear() <= new Date().getFullYear()) {
-         className = 'inactive';
-      } else if(reservations.some(r => r.start_date === dateString)) { 
-         className = 'reservedFirstDay'; 
-      } else if (reservations.some(r => r.end_date === dateString)) { 
-         className = 'reservedLastDay'; 
-      } else if (reservations.some(r => isDateBetween(dateString, r.start_date, r.end_date))) { 
-         className = 'reserved'; 
-      } else if (chosenDays.includes(dateString)) { 
-          if (dateString === chosenDays[0]) { 
-            className += ' firstDay'; 
-          } else if (dateString === chosenDays[chosenDays.length - 1]) { 
-            className += ' lastDay'; 
-          } else { 
-            className = 'bookedDay'; 
-          } 
-      }
-      
+      const baseClassName = nextDate.getMonth() <= new Date().getMonth() && 
+                          nextDate.getFullYear() <= new Date().getFullYear() ? 
+                          'inactive' : 'nextMonth';
+      const className = getDateClassName(dateString, nextDate, today) || baseClassName;
       datesHtml += `<li class="${className}" id="${dateString}">${i}</li>`;
    }
 
@@ -239,9 +251,46 @@ navs.forEach((nav) => {
 });
 
 function setPrice() {
-   const nights = Math.max(0, chosenDays.length - 1);
-   const price = (nights * rentPrice) + (saunas * saunaPrice);
-   document.getElementById("price").value = Math.max(0, price);
+
+   chosenDays.sort();
+
+   let finalPrice = 0;
+   
+
+   for (let i = 0; i < chosenDays.length - 1; i++) {
+      let day = chosenDays[i];
+
+      const specialPrice = containsSpecialPrice(day);
+      console.log(specialPrice);
+
+      if (specialPrice !== -1)
+         finalPrice += specialPrice;
+      else if (isWeekend(day)) {
+         finalPrice += +prices.weekend;
+      } else {
+         finalPrice += +prices.weekday
+      }
+   }
+
+   
+   finalPrice += saunas * prices.sauna
+
+   //const nights = Math.max(0, chosenDays.length - 1);
+   //const price = (nights * rentPrice) + (saunas * saunaPrice);
+   document.getElementById("price").value = Math.max(0, finalPrice);
+}
+
+function containsSpecialPrice(date) {
+   for (let i = 0; i < prices.specials.length; i++) {
+      if (prices.specials[i].date === date) return +prices.specials[i].price;
+   }
+   
+   return -1;
+}
+
+function isWeekend(date) {
+   const day = new Date(date).getDay();
+   return day === 5 || day === 6;
 }
 
 renderCalendar();
