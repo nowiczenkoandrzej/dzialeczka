@@ -26,6 +26,7 @@
                     <div>
                         <label for="special-<%= index %>">Special <%= index + 1 %>:</label>
                         <input type="text" id="special-<%= index %>" name="specials[]" value="<%= special %>">
+                        <button type="button" onclick="deleteSpecial(index)">usun</button>
                     </div>
                 <% }); %>
             </div>
@@ -41,7 +42,7 @@
 
         
 
-            <button type="submit">Zapisz</button>
+            <button id="saveButton" type="submit">Zapisz</button>
 
             
         </form>
@@ -49,7 +50,8 @@
     
 
     <script>
-        const prices = JSON.parse('<%- JSON.stringify(prices) %>');
+        let prices = JSON.parse('<%- JSON.stringify(prices) %>');
+        const specialsContainer = document.getElementById('specials-container');
         
         window.onload = () => {
             
@@ -58,18 +60,10 @@
             document.getElementById('sauna').value = prices.sauna || 0;
             document.getElementById('bonefire').value = prices.bonefire || 0;
 
-            const specialsContainer = document.getElementById('specials-container');
+            
             specialsContainer.innerHTML = ''; 
 
-            prices.specials.forEach((special, index) => {
-                const div = document.createElement('div');
-                div.innerHTML = `
-                    <input type="hidden" name="specials[${index}][date]" value="${special.date}">
-                    <input type="hidden" name="specials[${index}][price]" value="${special.price}">
-                    <span>${special.date} - ${special.price}</span>
-                `;
-                specialsContainer.appendChild(div);
-            });
+            displaySpecials(specialsContainer);
         };
 
         function addSpecial() {
@@ -103,6 +97,30 @@
             // Clear input fields
             document.getElementById('new-special-date').value = '';
             document.getElementById('new-special-price').value = '';
+        }
+
+        function deleteSpecial(index) {
+
+            prices.specials.splice(index, 1);
+
+
+            console.log(prices.specials);
+            displaySpecials(specialsContainer);
+
+        }
+
+        function displaySpecials(container) {
+            container.innerHTML = '';
+            prices.specials.forEach((special, index) => {
+                const div = document.createElement('div');
+                div.innerHTML = `
+                    <input type="hidden" name="specials[${index}][date]" value="${special.date}">
+                    <input type="hidden" name="specials[${index}][price]" value="${special.price}">
+                    <span>${special.date} - ${special.price}</span>
+                    <button type="button" onclick="deleteSpecial(${index})">usun</button>
+                `;
+                container.appendChild(div);
+            });
         }
 
 
