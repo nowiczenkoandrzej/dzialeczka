@@ -38,11 +38,7 @@ let month = date.getMonth();
 let year = date.getFullYear();
 
 function formatDate(date) {
-   const year = date.getFullYear();
-   const month = String(date.getMonth() + 1).padStart(2, '0'); // Miesiące są indeksowane od 0, więc dodajemy 1
-   const day = String(date.getDate()).padStart(2, '0'); // Używamy padStart, aby mieć 2 cyfry
-
-   return `${year}-${month}-${day}`;
+   return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
 }
 
 function compareDates(firstDate, secondDate) {
@@ -57,227 +53,129 @@ function isDateBetween(dateToCheck, startDate, endDate) {
     const start = new Date(startDate);
     const end = new Date(endDate);
 
-    return date >= start && date <= end;
+    return date > start && date < end;
+}
+
+function getDatesBetween(startDate, endDate) {
+   const dates = [];
+   let currentDate = new Date(startDate);
+   const end = new Date(endDate);
+
+   while (currentDate <= end) {
+      dates.push(formatDate(new Date(currentDate)));
+      currentDate.setDate(currentDate.getDate() + 1);
+   }
+   return dates;
 }
 
 function performClick(id) {
-
-
-   let index = chosenDays.indexOf(id);
-
    if (chosenDays.length > 1) {
       startDateInput.value = null;
       endDateInput.value = null;
-      chosenDays = []; 
+      chosenDays = [];
       renderCalendar();
       setPrice();
       return;
    }
 
    if (chosenDays.length === 1) {
-
+      const [start, end] = [new Date(chosenDays[0]), new Date(id)].sort((a, b) => a - b);
+      const dateRange = getDatesBetween(start, end);
       
+      const hasReservedDays = dateRange.some(date => 
+         reservations.some(reservation => 
+            isDateBetween(date, reservation.start_date, reservation.end_date)
+         )
+      );
 
-      if(chosenDays[0] < id) {
-         let firstDay = new Date(chosenDays[0]);
-         let lastDay = new Date(id);
-
-         let throughReservedDays = false;
-
-         while (!compareDates(firstDay, lastDay)) {
-            reservations.forEach(reservation => {
-               if (isDateBetween(formatDate(firstDay), reservation.start_date, reservation.end_date)) {
-                  chosenDays = [];
-                  throughReservedDays = true;        
-               }
-            });
-
-            if (throughReservedDays) break;
-
-            firstDay.setDate(firstDay.getDate() + 1);       
-            chosenDays.push(formatDate(firstDay));
-
-         }
-
-         if (chosenDays.length > 1) {
-            startDateInput.value = chosenDays[0];
-            endDateInput.value = chosenDays[chosenDays.length - 1];
-            console.log(chosenDays)
-         }
-
+      if (!hasReservedDays) {
+         chosenDays = dateRange;
+         startDateInput.value = chosenDays[0];
+         endDateInput.value = chosenDays[chosenDays.length - 1];
       } else {
-         let firstDay = new Date(id);
-         let lastDay = new Date(chosenDays[0]);
-
-         
-      
-
-         let throughReservedDays = false;
-
-         while (!compareDates(firstDay, lastDay)) {
-            reservations.forEach(reservation => {
-               if (isDateBetween(formatDate(firstDay), reservation.start_date, reservation.end_date)) {
-                  chosenDays = [];
-                  throughReservedDays = true;
-               }
-            });
-
-            if (throughReservedDays) break;
-            let newdate = formatDate(firstDay);
-            firstDay.setDate(firstDay.getDate() + 1);    
-            chosenDays.push(newdate);
-         }
-
-         if (chosenDays.length > 1) {
-            chosenDays.sort();
-            startDateInput.value = chosenDays[0];
-            endDateInput.value = chosenDays[chosenDays.length - 1];
-         }
-         
+         chosenDays = [];
       }
       setPrice();
+   } else {
+      chosenDays.push(id);
    }
-
-   
-   if(index < 0) {
-      chosenDays.push(id)
-   } 
    renderCalendar();
-
 }
 
 
 function renderCalendar() {
-   const start = new Date(year, month, 1).getDay();
-   const endDate = new Date(year, month + 1, 0).getDate();
-   const end = new Date(year, month, endDate).getDay();
-   const endDatePrev = new Date(year, month, 0).getDate();
-
-   let counter = 0;
+   const firstDay = new Date(year, month, 1);
+   const lastDay = new Date(year, month + 1, 0);
+   const today = new Date();
+   
    let datesHtml = "";
-   let isSunday = start === 0;
    
-   if(isSunday) {
-      for (let i = 7; i > 1; i--) {
-         const prevDay = endDatePrev - i + 2;
-         const prevDate = new Date(year, month - 1, prevDay);
-         const prevDateString = `${prevDate.getFullYear()}-${String(prevDate.getMonth() + 1).padStart(2, '0')}-${String(prevDate.getDate()).padStart(2, '0')}`;
-         datesHtml += `<li class="previousMonth" id="${prevDateString}">${prevDay}</li>`;
-         counter++;
-      }
-
-   } else {
-      for (let i = start; i > 1; i--) {
-         const prevDay = endDatePrev - i + 2;
-         const prevDate = new Date(year, month - 1, prevDay);
-         const prevDateString = `${prevDate.getFullYear()}-${String(prevDate.getMonth() + 1).padStart(2, '0')}-${String(prevDate.getDate()).padStart(2, '0')}`;
-         datesHtml += `<li class="previousMonth">${prevDay}</li>`;
-         counter++;
-      }
-
+   const prevMonthDays = firstDay.getDay() === 0 ? 6 : firstDay.getDay() - 1;
+   for (let i = prevMonthDays; i > 0; i--) {
+      const prevDate = new Date(year, month, 1 - i);
+      datesHtml += `<li class="previousMonth">${prevDate.getDate()}</li>`;
    }
 
-   
-
-   for (let i = 1; i <= endDate; i++) {
-
-      if (
-         year < new Date().getFullYear() || // Jeśli rok jest wcześniejszy niż bieżący
-         (year === new Date().getFullYear() && month < new Date().getMonth()) || // Jeśli rok jest ten sam, ale miesiąc wcześniejszy
-         (year === new Date().getFullYear() && month === new Date().getMonth() && i < new Date().getDate()) // Jeśli to ten sam rok i miesiąc, ale dzień wcześniejszy
-      ) {
-         datesHtml += `<li class="inactive">${i}</li>`;
-      } else {
-         const currentDateString = `${year}-${String(month + 1).padStart(2, '0')}-${String(i).padStart(2, '0')}`;
-
-         let isReserved = false;
-         let className;
-         
-
-         reservations.forEach(reservation => {
-            if (isDateBetween(currentDateString, reservation.start_date, reservation.end_date)) {
-               className = 'reserved';
-               isReserved = true;
-            }
-
-         });
-
-         if (!isReserved) {
-            if (chosenDays.includes(currentDateString)) {
-               className = 'bookedDay';
-            } else {
-               className = 'dayOfMonth';
-            }
-         }
-         
-         datesHtml += `<li class="${className}" id="${currentDateString}">${i}</li>`;
-      }
-
-      counter++;
-   }
-
-   let endMonthCounter = 1;
-   while(counter < 42) {
-      const nextDay = endMonthCounter;
-      const nextDate = new Date(year, month + 1, nextDay);
-      const nextDateString = `${nextDate.getFullYear()}-${String(nextDate.getMonth() + 1).padStart(2, '0')}-${String(nextDate.getDate()).padStart(2, '0')}`;
-
-      let isReserved = false;
-
-      reservations.forEach(reservation => {
-         if (isDateBetween(nextDateString, reservation.start_date, reservation.end_date)) {
-            className = 'reserved';
-            isReserved = true;
-         }
-
-      });
-
-      if (!isReserved) {
-         if (chosenDays.includes(nextDateString)) {
-            className = 'bookedDay';
-         } else {
-            className = 'nextMonth';
-         }
-      }
-
-
+   for (let i = 1; i <= lastDay.getDate(); i++) {
+      const currentDate = new Date(year, month, i);
+      const dateString = formatDate(currentDate);
       
+      let className = 'dayOfMonth'; 
+      if (currentDate < today) { 
+         className = 'inactive'; 
+      } else if(reservations.some(r => r.start_date === dateString)) { 
+         className = 'reservedFirstDay'; 
+      } else if (reservations.some(r => r.end_date === dateString)) { 
+         className = 'reservedLastDay'; 
+      } else if (reservations.some(r => isDateBetween(dateString, r.start_date, r.end_date))) { 
+         className = 'reserved'; 
+      } else if (chosenDays.includes(dateString)) { 
+          if (dateString === chosenDays[0]) { 
+            className += ' firstDay'; 
+          } else if (dateString === chosenDays[chosenDays.length - 1]) { 
+            className += ' lastDay'; 
+          } else { 
+            className = 'bookedDay'; 
+          } 
+      }
+      
+      datesHtml += `<li class="${className}" id="${dateString}">${i}</li>`;
+   }
 
-      datesHtml += `<li class="${className}" id="${nextDateString}">${nextDay}</li>`;
-      counter++;
-      endMonthCounter++;
+   const remainingDays = 42 - (prevMonthDays + lastDay.getDate());
+   for (let i = 1; i <= remainingDays; i++) {
+      const nextDate = new Date(year, month + 1, i);
+      const dateString = formatDate(nextDate);
+      
+      let className = 'nextMonth';
+
+      if (nextDate.getMonth() <= new Date().getMonth() && nextDate.getFullYear() <= new Date().getFullYear()) {
+         className = 'inactive';
+      } else if(reservations.some(r => r.start_date === dateString)) { 
+         className = 'reservedFirstDay'; 
+      } else if (reservations.some(r => r.end_date === dateString)) { 
+         className = 'reservedLastDay'; 
+      } else if (reservations.some(r => isDateBetween(dateString, r.start_date, r.end_date))) { 
+         className = 'reserved'; 
+      } else if (chosenDays.includes(dateString)) { 
+          if (dateString === chosenDays[0]) { 
+            className += ' firstDay'; 
+          } else if (dateString === chosenDays[chosenDays.length - 1]) { 
+            className += ' lastDay'; 
+          } else { 
+            className = 'bookedDay'; 
+          } 
+      }
+      
+      datesHtml += `<li class="${className}" id="${dateString}">${i}</li>`;
    }
 
    dates.innerHTML = datesHtml;
    header.textContent = `${months[month]} ${year}`;
 
-   days = document.querySelectorAll(".dates li.dayOfMonth, .dates li.nextMonth, .dates li.bookedDay");
-   previousMonth = document.querySelectorAll(".dates li.previousMonth");
-
-   days.forEach((day) => {
-      day.addEventListener("click", (e) => {
-         const id = e.target.id;
-
-         performClick(id);
-
-      })
+   document.querySelectorAll('.dates li:not(.inactive)').forEach(day => {
+      day.addEventListener('click', e => performClick(e.target.id));
    });
-   previousMonth.forEach((day) => {
-      day.addEventListener("click", (e) => {
-         if (month === 0) {
-            year--;
-            month = 11;
-         } else {
-            month--;
-         }
-         date = new Date(year, month, new Date().getDate());
-         year = date.getFullYear();
-         month = date.getMonth();
-
-         renderCalendar();
-      });
-   });
-
 }
 
 document.querySelector('.subtract').addEventListener('click', (e) => {
@@ -300,12 +198,9 @@ document.getElementById('form').addEventListener('submit', function(event) {
    const termsCheckbox = document.getElementById('terms');
    
 
-   // Sprawdź, czy pola są puste
    if (!startDateInput.value || !endDateInput.value) {
-      // Zablokuj wysłanie formularza
       event.preventDefault();
       
-      // Pokaż komunikat o błędzie
       errorMessage.style.display = 'block';
       errorMessage.textContent = 'Wybierz termin przed zarezerwowaniem!';
    } else if (!termsCheckbox.checked) {
@@ -315,16 +210,13 @@ document.getElementById('form').addEventListener('submit', function(event) {
         errorMessage.textContent = 'Musisz zaakceptować regulamin i politykę prywatności!';
       
    } else {
-      // Ukryj komunikat o błędzie, jeśli pola są poprawnie wypełnione
       errorMessage.style.display = 'none';
    }
 });
 
-
 navs.forEach((nav) => {
    nav.addEventListener("click", (e) => {
       const btnId = e.target.id;
-
 
       if (btnId === "prev" && month === 0) {
          year--;
@@ -347,31 +239,9 @@ navs.forEach((nav) => {
 });
 
 function setPrice() {
-
-   let nights;
-
-   const uniqueArray = chosenDays.reduce((acc, item) => {
-      if (!acc.includes(item)) {
-         acc.push(item);
-      }
-      return acc;
-   }, []);
-
-
-   if (uniqueArray.length - 1 < 0) {
-      nights = 0;
-   } else {
-      nights = uniqueArray.length - 1
-   }
-
-   let price = (nights * rentPrice) + (saunas * saunaPrice);
-
-   if (price < 0) price = 0;
-
-
-   document.getElementById("price").value = price
+   const nights = Math.max(0, chosenDays.length - 1);
+   const price = (nights * rentPrice) + (saunas * saunaPrice);
+   document.getElementById("price").value = Math.max(0, price);
 }
-
-
 
 renderCalendar();

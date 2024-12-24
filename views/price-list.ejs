@@ -46,7 +46,15 @@
         
         <div class="pricing-section special-dates">
             <h2>Terminy Specjalne</h2>
-            <% prices.specials.sort((a, b) => new Date(a.date) - new Date(b.date)).forEach(function(special) { %>
+            <% 
+            const today = new Date();
+            today.setHours(0, 0, 0, 0); // Ustawiamy czas na początek dnia
+            
+            prices.specials
+                .filter(special => new Date(special.date) >= today)
+                .sort((a, b) => new Date(a.date) - new Date(b.date))
+                .forEach(function(special) { 
+            %>
                 <div class="special-date">
                     <span><%= new Date(special.date).toLocaleDateString('pl-PL', { 
                         day: 'numeric', 

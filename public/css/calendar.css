@@ -102,10 +102,58 @@
     color: #000;
 }
 
+.dates li.firstDay::before {
+    content: "";
+    width: 75%;
+    height: 75%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #009908;
+    clip-path: polygon(0% 100%, 100% 100%, 100% 0%); 
+    z-index: -1;
+    border-radius: 30%;
+    transition: clip-path 0.3s, background 0.3s;
+}
+
+.dates li.firstDay {
+    color: #000;
+}
+
+.dates li.lastDay::before {
+    content: "";
+    width: 75%;
+    height: 75%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #009908;
+    clip-path: polygon(0% 100%, 0% 0%, 100% 0%); 
+    z-index: -1;
+    border-radius: 30%;
+    transition: clip-path 0.3s, background 0.3s;
+    
+}
+
+.dates li.lastDay {
+    color: #000;
+}
+
 .dates li.inactive {
     color: #ccc;
 }
 .dates li.reserved {
+    color: #ddd;
+    position: relative;
+}
+.dates li.reservedFirstDay {
+    color: #ddd;
+    position: relative;
+}
+
+.dates li.reservedLastDay {
     color: #ddd;
     position: relative;
 }
@@ -120,6 +168,34 @@
     left: 50%;
     transform: translate(-50%, -50%);
     background: rgb(160, 68, 68);
+    border-radius: 30%;
+    z-index: -1;
+}
+
+.dates li.reservedFirstDay::before {
+    content: "";
+    width: 75%;
+    height: 75%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgb(160, 68, 68);
+    clip-path: polygon(0% 100%, 100% 100%, 100% 0%); 
+    border-radius: 30%;
+    z-index: -1;
+}
+
+.dates li.reservedLastDay::before {
+    content: "";
+    width: 75%;
+    height: 75%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgb(160, 68, 68);
+    clip-path: polygon(0% 100%, 0% 0%, 100% 0%); 
     border-radius: 30%;
     z-index: -1;
 }
