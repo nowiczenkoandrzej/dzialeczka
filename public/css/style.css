@@ -524,3 +524,67 @@ h2 {
 .special-date:last-child {
     border-bottom: none;
 }
+.spots {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 10rem;
+}
+.spots-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 40px;
+
+}
+
+.spots-wrapper img {
+    width: 500px;
+    max-width: 100%; 
+    padding: 0.5rem;
+    aspect-ratio: 1;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 20px;
+    
+}
+.spots-content {
+    padding: 0.5rem;
+    max-width: 500px;
+}
+.spots-content p {
+    padding-bottom: 1rem;
+    line-height: 2;
+    font-size: 1.2rem;
+}
+
+.spots-content h1 {
+    padding-bottom: 2rem;
+    font-size: 2rem;
+}
+.spots-content a {
+    padding-bottom: 2rem;
+    font-size: 1.5rem;
+    
+}
+
+.spots-wrapper-reverse {
+    display: flex;
+    flex-direction: row-reverse;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 40px;
+
+}
+
+.spots-wrapper-reverse img {
+    width: 500px;
+    max-width: 100%; 
+    padding: 0.5rem;
+    aspect-ratio: 1;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 20px;
+    
+}

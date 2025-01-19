@@ -20,6 +20,9 @@ router.get('/price-list', (req, res) => {
 
     res.render('price-list', {prices: data});
 });
+router.get('/spots', (req, res) => {
+    res.render('spots');
+});
 
 
 module.exports = router;
