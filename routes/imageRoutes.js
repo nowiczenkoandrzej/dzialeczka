@@ -5,7 +5,7 @@ const upload = require('../config/storage');
 const authController = require('../controllers/authController');
 
 
-router.get('/gallery', imageController.getGallery);
+router.get('/galeria', imageController.getGallery);
 router.post('/upload_image', authController.verifyToken, upload.single('image'), imageController.uploadImage);
 router.post('/delete_image', authController.verifyToken, imageController.deleteImage);
 

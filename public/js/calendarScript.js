@@ -68,7 +68,7 @@ function getDatesBetween(startDate, endDate) {
 }
 
 function performClick(id) {
-   if (chosenDays.length > 1) {
+   if (chosenDays.length > 3) {
       startDateInput.value = null;
       endDateInput.value = null;
       chosenDays = [];
@@ -77,10 +77,48 @@ function performClick(id) {
       return;
    }
 
-   if (chosenDays.length === 1) {
-      const [start, end] = [new Date(chosenDays[0]), new Date(id)].sort((a, b) => a - b);
-      const dateRange = getDatesBetween(start, end);
+   if (chosenDays.length === 3) {
+      let start = new Date(chosenDays[0]);
+      let end = new Date(id);
+
+      if (end < start) {
+         [start, end] = [end, start];
+      }
       
+
+      const nights = diffInDays(start, end);
+      if (nights < 2) {
+         end = new Date(start);
+         end.setDate(start.getDate() + 2);
+      }
+
+      const dateRange = getDatesBetween(start, end);
+            
+      const hasReservedDays = dateRange.some(date => 
+         reservations.some(reservation => 
+            isDateBetween(date, reservation.start_date, reservation.end_date)
+
+
+         )
+      );
+
+      if (!hasReservedDays) {
+         chosenDays = dateRange;
+         startDateInput.value = chosenDays[0];
+         endDateInput.value = chosenDays[chosenDays.length - 1];
+      } else {
+         chosenDays = [];
+         startDateInput.value = null;
+         endDateInput.value = null;
+      }
+      setPrice();
+   } else {
+      const start = new Date(id);
+      const end = new Date(start);
+      end.setDate(start.getDate() + 2);
+
+      const dateRange = getDatesBetween(start, end);
+
       const hasReservedDays = dateRange.some(date => 
          reservations.some(reservation => 
             isDateBetween(date, reservation.start_date, reservation.end_date)
@@ -91,12 +129,13 @@ function performClick(id) {
          chosenDays = dateRange;
          startDateInput.value = chosenDays[0];
          endDateInput.value = chosenDays[chosenDays.length - 1];
+         setPrice();
       } else {
          chosenDays = [];
+         startDateInput.value = null;
+         endDateInput.value = null;
+         alert("Wybrany termin jest niedostępny!");
       }
-      setPrice();
-   } else {
-      chosenDays.push(id);
    }
    renderCalendar();
 }
@@ -188,6 +227,12 @@ function renderCalendar() {
    document.querySelectorAll('.dates li:not(.inactive)').forEach(day => {
       day.addEventListener('click', e => performClick(e.target.id));
    });
+}
+
+function diffInDays(start, end) {
+  const startUTC = Date.UTC(start.getFullYear(), start.getMonth(), start.getDate());
+  const endUTC = Date.UTC(end.getFullYear(), end.getMonth(), end.getDate());
+  return Math.floor((endUTC - startUTC) / (1000 * 60 * 60 * 24));
 }
 
 document.querySelector('.subtract').addEventListener('click', (e) => {

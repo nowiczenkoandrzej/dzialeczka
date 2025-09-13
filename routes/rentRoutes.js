@@ -6,7 +6,7 @@ const authController = require('../controllers/authController');
 router.get('/dashboard', authController.verifyToken, rentController.getRents);
 router.post('/post', rentController.createRent);
 router.post('/delete', authController.verifyToken, rentController.deleteRent);
-router.get('/form', rentController.getAvailableDates);
+router.get('/rezerwacja', rentController.getAvailableDates);
 router.post('/update-status', authController.verifyToken, rentController.updateStatus);
 
 

@@ -6,7 +6,7 @@ router.get('/', (req, res) => {
     res.render('index');
 });
 
-router.get('/policy', (req, res) => {
+router.get('/polityka-prywatnosci', (req, res) => {
     res.render('policy');
 });
 
@@ -14,13 +14,13 @@ router.get('/success', (req, res) => {
     res.render('success');
 });
 
-router.get('/price-list', (req, res) => {
+router.get('/cennik', (req, res) => {
     const manager = new JSONFileManager('./prices.json');
     const data = manager.load();
 
     res.render('price-list', {prices: data});
 });
-router.get('/spots', (req, res) => {
+router.get('/atrakcje', (req, res) => {
     res.render('spots');
 });
 

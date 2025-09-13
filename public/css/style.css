@@ -43,13 +43,13 @@ h3 {
 }
 
 .hero {
+    position: relative;
     width: 90%;
     height: 80vh;
     margin-top: 6rem;
-    background-image: url('https://www.vidaron.pl/_userfiles/uploads/maly_domek_letniskowy/drewniany-domek-letniskowy-min.jpg?1711619153336');
-    background-size: cover;
-    background-position: center; 
-    background-repeat: no-repeat;
+    background: 
+      linear-gradient(to right, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.3) 40%, rgba(0,0,0,0) 100%),
+      url('../img/1757108526905.jpg') center/cover no-repeat;
     box-sizing: border-box;
     padding: 3%;
     border-radius: 20px;
@@ -59,12 +59,36 @@ h3 {
     flex-direction: column;
 }
 
-.title {
-    align-self: flex-start;
-    top: 10px;
-    left: 10px;
-    color: white;
-    margin: 40px;
+.hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45); /* półprzezroczysta nakładka */
+    border-radius: 20px; /* dopasowane do hero */
+    z-index: 0;
+}
+
+.hero .title,
+.hero .action {
+    position: relative; /* żeby były ponad overlay */
+    z-index: 1;
+}
+
+.hero h1 {
+    color: #fff;
+    line-height: 1.5;
+    font-size: 2rem;
+    width: 50%;
+    text-shadow: 2px 2px 6px rgba(0,0,0,0.7); /* dodatkowy kontrast */
+}
+
+.hero p {
+    color: #fff;
+    margin: 6px 0;
+    line-height: 1.5;
+    font-size: 1rem;
+    width: 50%;
+    text-shadow: 1px 1px 4px rgba(0,0,0,0.7);
 }
 .action {
     align-self: flex-end;
@@ -87,22 +111,7 @@ h3 {
     transform: scale(1.05);
 }
 
-.hero h1 {
-    color: #333;
-    margin: 10px;
-    line-height: 1.5;
-    font-size: 2rem;
-    width: 50%;
 
-}
-.hero p  {
-    color: #333;
-    margin: 10px;
-    line-height: 1.5;
-    font-size: 1rem;
-    width: 50%;
-    
-}
 
 @media (max-width: 768px) {
     .hero h1 {
