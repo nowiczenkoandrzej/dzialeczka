@@ -1,8 +1,8 @@
 {
-    "weekday": "1500",
+    "weekday": "2000",
     "weekend": "2000",
-    "sauna": "100",
-    "bonefire": "300",
+    "sauna": "300",
+    "bonefire": "100",
     "specials": [
         {
             "date": "2024-12-19",
